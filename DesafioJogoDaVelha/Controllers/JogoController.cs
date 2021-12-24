@@ -15,7 +15,10 @@ namespace DesafioJogoDaVelha.Controllers
         {
             Console.Clear();
 
+            MenuController menuController = new MenuController();
             DadosController dadosController = new DadosController();
+
+            Console.WriteLine(menuController.GerarCabecalho());
 
             if (!jogarNovamente)
             {
@@ -82,13 +85,15 @@ namespace DesafioJogoDaVelha.Controllers
 
             Console.Clear();
 
+            Console.WriteLine(menuController.GerarCabecalho());
+
             if (JogoAtual.IDJogadorVencedor != 0)
             {
                 Jogador jogador = JogoAtual.Jogadores.Where(x => x.IDJogador == JogoAtual.IDJogadorVencedor).FirstOrDefault();
 
                 Console.WriteLine(" {0} é o(a) vencedor(a)! Parabéns!", jogador.Nome);
             }
-            else
+            else if (JogoAtual.Posicoes.Count() == 0)
             {
                 Console.WriteLine(" Deu velha! Empatou!");
             }
@@ -128,7 +133,11 @@ namespace DesafioJogoDaVelha.Controllers
 
         private static void MostrarTabuleiro() 
         {
+            MenuController menuController = new MenuController();
+
             Console.Clear();
+
+            Console.WriteLine(menuController.GerarCabecalho());
 
             string placar = string.Format(" === {0} - {1} X {2} - {3} ===", JogoAtual.Jogadores[0].Nome, JogoAtual.Jogadores[0].Vitorias, JogoAtual.Jogadores[1].Vitorias, JogoAtual.Jogadores[1].Nome);
 
@@ -197,6 +206,10 @@ namespace DesafioJogoDaVelha.Controllers
 
             Console.WriteLine();
 
+            Console.WriteLine(" Ou digite \"Sair\" para sair do jogo.");
+
+            Console.WriteLine();
+
             bool valorCerto = false;
 
             while (!valorCerto)
@@ -204,6 +217,10 @@ namespace DesafioJogoDaVelha.Controllers
                 posicaoEscolhida = dadosController.GetString().ToUpper();
 
                 if (JogoAtual.Posicoes.Contains(posicaoEscolhida))
+                {
+                    valorCerto = true;
+                }
+                else if (posicaoEscolhida == "SAIR")
                 {
                     valorCerto = true;
                 }
@@ -257,7 +274,11 @@ namespace DesafioJogoDaVelha.Controllers
 
             JogoAtual.Posicoes.Remove(posicaoEscolhida);
 
-            if (JogoAtual.Tabuleiro[0, 0] == jogador.Simbolo
+            if (posicaoEscolhida == "SAIR")
+            {
+                terminou = true;
+            }
+            else if (JogoAtual.Tabuleiro[0, 0] == jogador.Simbolo
                 && JogoAtual.Tabuleiro[0, 1] == jogador.Simbolo
                 && JogoAtual.Tabuleiro[0, 2] == jogador.Simbolo)
             {
@@ -306,7 +327,7 @@ namespace DesafioJogoDaVelha.Controllers
                 terminou = true;
             }
 
-            if (terminou)
+            if (terminou && posicaoEscolhida != "SAIR")
             {
                 JogoAtual.IDJogadorVencedor = jogador.IDJogador;
                 JogoAtual.Jogadores.Where(x => x.IDJogador == jogador.IDJogador).FirstOrDefault().Vitorias++;

@@ -9,6 +9,15 @@ namespace DesafioJogoDaVelha.Controllers
 {
     internal class MenuController
     {
+        public string GerarCabecalho() 
+        {
+            return @"
+  ===============================
+ |--------:Jogo da Velha:--------|
+  ===============================
+";
+        }
+
         public void MostrarMenu() 
         {
             Console.Clear();
@@ -17,13 +26,9 @@ namespace DesafioJogoDaVelha.Controllers
             JogoController.JogoAtual.Menus.Add(new Menu() { Valor = 1, Descricao = "Novo Jogo" });
             JogoController.JogoAtual.Menus.Add(new Menu() { Valor = 2, Descricao = "Sair" });
 
-            string menuTexto = @"
-  ===============================
- |--------:Jogo da Velha:--------|
-  ===============================
-    Selecione a Opção Desejada
+            string menuTexto = GerarCabecalho();
 
-";
+            menuTexto += "    Selecione a Opção Desejada" + Environment.NewLine + Environment.NewLine;
 
             foreach (Menu menu in JogoController.JogoAtual.Menus)
             {
