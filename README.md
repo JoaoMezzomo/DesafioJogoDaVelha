@@ -4,6 +4,8 @@ Este manual tem como objetivo demonstrar como jogar o Jogo da Velha do nosso pro
 
 A interação com o jogo se faz através de comandos que devem ser digitados no console, sempre lembrando que é necessário digitar o comando e apertar “Enter” para que o mesmo seja processado.
 
+![1](https://github.com/JoaoMezzomo/DesafioJogoDaVelha/assets/60244693/22799d13-08a5-4ab5-8ceb-3d113941667c)
+
 ## Novo Jogo
 
 Para iniciar um novo jogo siga os seguintes passos: 
